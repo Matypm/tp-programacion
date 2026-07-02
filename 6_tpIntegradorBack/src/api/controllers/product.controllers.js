@@ -94,10 +94,10 @@ export const createProduct = async (req, res) => {
         const { name, image, category, price } = req.body;
 
         // Optimizacion 3: Sanitizamos los strings antes de insertarlos, para normalizar los datos
-        const cleanName = nombre.trim();
+        const cleanName = name.trim();
 
 
-        const [rows] = await ProductModels.createProduct(cleanName, image, category, price);
+        const [rows] = await ProductModels.insertProduct(cleanName, image, category, price);
 
         // Optimizacion 5: En lugar de 200 OK, 201 Created
         res.status(200).json({

@@ -26,24 +26,29 @@ const validateId = (req, res, next) => {
 
 
 // Middleware para validar los campos del formulario
-const tallesValidos = ["S", "M", "L", "XL"];
+const categoriasValidas = ["Seleccion", "Clubes"];
+
 const validateProduct = (req, res, next) => {
-    const { nombre, talle, precio, temporada } = req.body; // Recogemos los datos del body
+    const { name, image, price, category} = req.body; // Recogemos los datos del body
     const errores = []; // Creamos un array vacio de errores
 
     // Verificamos los datos de entrada
-    if (!nombre || !talle || !precio || !temporada){
+    if (!name || !image || !category || !price){
         errores.push("Faltan campos requeridos");
     }
 
-    if (typeof precio !== "number" || precio <= 0){
+    if (typeof name !== "string" || name.trim().length < 2) {
+        errores.push("El nombre debe tener al menos 2 caracteres");
+    }
+
+    if (typeof price !== "number" || price <= 0){
         errores.push("El precio debe ser un numero mayor a 0");
     }
 
     // No validamos image pq usamos dsp Multer
 
-    if (!tallesValidos.includes(talle)){
-        errores.push("Talle invalido");
+    if (!categoriasValidas.includes(category)){
+        errores.push("Categoria invalida");
     }
 
     // Detectamos si existe algun error en la lista y lo devolvemos en un 400
@@ -57,8 +62,11 @@ const validateProduct = (req, res, next) => {
     next(); // Sin el next, no da paso al siguiente middleware o a procesar la respuesta
 }
 
+// Middleware simple de proteccion de rutas -> Este middleware lo llamamos cada vez que servimos una ruta del dashboard
 const requireLogin = (req, res, next) => {
+    // Si cuando llamemos a una vista, no existe una sesion creada, redirigiremos a /login
     if (!req.session.user){
+        // En lugar de renderizar con res.render("") -> aca redirigimos a una URL
         return res.redirect("/login")
     }
 
