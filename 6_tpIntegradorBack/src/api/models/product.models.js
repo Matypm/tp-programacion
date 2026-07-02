@@ -13,7 +13,7 @@ import connection from "../database/db.js";
 const selectAllProducts = () => {
      //Optimizacion 3: Extraemos la sentencia de una variables y la optimizamos
         //  Sacamos SELECT * para evitar traer columnas innecesarias (+ eficiencia)
-        const sql = "SELECT id, nombre, talle, precio, temporada FROM productos";
+        const sql = "SELECT id, name, price, image FROM productos";
 
         // Con el destructuring separamos los resultados (rows) y la metadata(field)
         return connection.query(sql); 
@@ -29,7 +29,7 @@ const selectProductById = (id) => {
     // Sacamos el SELECT * pq evita traer columnas innecesarias (+ eficiencia)
     // El ? en la consulta es un "placeholder", una medida de seguridad en consultas SQL para prevenir inyecciones SQL
     
-    const sql = "SELECT id, nombre, talle, precio, temporada FROM productos WHERE id = ?"
+    const sql = "SELECT id, name, price, image FROM productos WHERE id = ?"
 
     return connection.query(sql, [req.id]);
 }
@@ -39,11 +39,11 @@ const selectProductById = (id) => {
 // Crear nuevo producto
 /////////////////////
 
-const insertProduct = (cleanName, talle, precio, temporada) => {
+const insertProduct = (cleanName, image, category, price) => {
     // Los placeholders "?" nos permiten realizar consultas SQL mas seguras (evitan inyeccion SQL)
-    const sql = "INSERT INTO productos (nombre, talle, precio, temporada) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO productos (name, image, category, price) VALUES (?, ?, ?, ?)";
 
-    return connection.query(sql, [nombre, talle, precio, temporada]);
+    return connection.query(sql, [cleanName, image, category, price]);
 }
 
 
@@ -51,10 +51,10 @@ const insertProduct = (cleanName, talle, precio, temporada) => {
 // Modificar producto
 /////////////////////
 
-const updateProduct = (nombre, talle, precio, temporada) => {
-    const sql = "UPDATE productos SET nombre = ?, talle = ?, precio = ?, temporada = ? WHERE id = ?";
+const updateProduct = (name, image, price, category, id) => {
+    const sql = "UPDATE productos SET name = ?, image = ?, price = ?, category = ? WHERE id = ?";
         
-    return connection.query(sql, [nombre, talle, precio, temporada, id]);
+    return connection.query(sql, [name, image, price, category, id]);
 }
 
 

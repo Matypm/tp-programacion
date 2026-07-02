@@ -53,10 +53,8 @@ app.get("/", (req, res) => {
     res.send("Hola mundo desde Express.js");
 })
 
-
-app.get("/dashboard", (req, res) => {
-    res.render("index")
-});
+// Rutas de vistas
+app.use("/dashboard", viewRoutes);
 
 
 

@@ -91,13 +91,13 @@ export const createProduct = async (req, res) => {
         // console.log(req.body);
 
         // Extraemos los valores que vienen en el CUERPO (body) de la peticion http (HTTP Request)
-        const {nombre, talle, precio, temporada} = req.body;
+        const { name, image, category, price } = req.body;
 
         // Optimizacion 3: Sanitizamos los strings antes de insertarlos, para normalizar los datos
         const cleanName = nombre.trim();
 
 
-        const [rows] = await ProductModels.createProduct(cleanName, talle, precio, temporada);
+        const [rows] = await ProductModels.createProduct(cleanName, image, category, price);
 
         // Optimizacion 5: En lugar de 200 OK, 201 Created
         res.status(200).json({
@@ -125,10 +125,10 @@ export const modifyProduct = async (req, res) => {
 
     // Optimizacion 1: Agregamos manejo de errores con try catch
     try {
-        const {id, nombre, talle, precio, temporada} = req.body; //Ya hacemos destructuring aca pq recibimos un objeto pq ya lo teniamos con el midelware |app.use(express.json());|
+        const { id, name, image, price, category } = req.body; //Ya hacemos destructuring aca pq recibimos un objeto pq ya lo teniamos con el midelware |app.use(express.json());|
         
 
-        const [result] = await ProductModels.updateProduct(nombre, talle, precio, temporada, id);
+        const [result] = await ProductModels.updateProduct(name, image, price, category, id);
 
         //Optimizacion 2: Verificamos si realmente se actualizo algo
         if(result.changedRows === 0){
