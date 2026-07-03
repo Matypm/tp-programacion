@@ -2,7 +2,7 @@
     Controladores de vistas
 *================================*/
 
-import productModels from "../models/product.models.js";
+import ProductModels from "../models/product.models.js";
 
 
 // Vista principal del dashboard

@@ -1,5 +1,6 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
-const postProductForm = document.getElementById("postProduct-form");
+const postProductForm = document.getElementById("postProduct-form"); // Formulario productos
+const postUserForm = document.getElementById("postUser-form"); // Formulario de usuarios
 const urlBase = "http://localhost:3000/api";
 
 
@@ -31,9 +32,7 @@ function validarFormulario(data) {
 
 // Optimizacion 2: Mostramos el mensaje de exito o error visualmente
 function mostrarMensaje(type, message) {
-    contenedorProductos.innerHTML = `
-        <p class="mensaje mensaje-${type}">${message}</p>
-    `;
+    contenedorProductos.innerHTML = `<p class="mensaje mensaje-${type}">${message}</p>`;
 }
 
 function mostrarListaErrores(array) {
@@ -44,31 +43,20 @@ function mostrarListaErrores(array) {
     contenedorProductos.innerHTML = htmlErrores;
 }
 
-// Gestionamos el envio de datos del formulario de producto
-postProductForm.addEventListener("submit", async event => {
-    event.preventDefault();
+// Enviamos al endpoint el nuevo usuario admin
+postUserForm.addEventListener("submit", async event => {
+    event.preventDefault(); // Evitamos el envio por defecto del formulario
 
+    // Convertimos la data del form en un objeto nativo del DOM, FormData
     const formData = new FormData(event.target);
 
+
+    // Convertimos el objeto FormData en un objeto literal JS para hacerle luego JSON.stringify() para enviarselo al servidor en el body de la peticion http
     const data = Object.fromEntries(formData.entries());
-
-    // Optimizacion 3: parseamos price antes de enviarlo, porque FormData devuelve todo como strings
-    data.price = Number(data.price);
-
-    console.log(data); // Aca se muestra todo el objeto del producto seleccionado (todos sus atributos)
-
-    // Optimizacion 4: Llamamos a la fnucion para validar los datos del formulario
-    const errores = validarFormulario(data);
-
-    // Si hay errores, mostramos mensaje de error y terminamos aca
-    if (errores.length > 0) {
-        console.log(errores);
-        mostrarListaErrores(errores);
-        return;
-    }
+    console.table(data);
 
     try {
-        const response = await fetch(`${urlBase}/productos`, {
+        const response = await fetch(`${urlBase}/usuarios`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -96,14 +84,19 @@ postProductForm.addEventListener("submit", async event => {
         mostrarMensaje("exito", result.message);
         console.log(result.message);
 
+
+
     } catch (error) {
         console.error("Error al enviar los datos ", error);
         mostrarMensaje("error", "Error al procesar la solicitud");
     }
 })
 
-// Gestionamos el envio de datos del formlario
+
+
+// Gestionamos el envio de datos del formulario
 postProductForm.addEventListener("submit", async event => {
+
     event.preventDefault(); 
 
     const formData = new FormData(event.target);
@@ -127,7 +120,7 @@ postProductForm.addEventListener("submit", async event => {
 
     
     try {
-        const response = await fetch(urlBase, {
+        const response = await fetch(`${urlBase}/productos`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -28,8 +28,7 @@ const selectAdminUsers = (email) => {
 // Crear usuarios admin
 //////
 const insertAdminUser = (name, email, password) => {
-
-    const sql = "INSERT into users (name, email, password) VALUES (?, ?, ?)"
+    const sql = "INSERT INTO usuarios (name, email, password) VALUES (?, ?, ?)"
 
     return connection.query(sql, [name, email, password]);
 }

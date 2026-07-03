@@ -1,6 +1,6 @@
 <!-- Aca incluimos los fragmentos del <head> y del <header> -->
-<%- include("/partials/head.ejs"); %>
-<%- include("/partials/nav.ejs"); %>
+<%- include("partials/head.ejs"); %>
+<%- include("partials/nav.ejs"); %>
 
     <main>
 
@@ -17,8 +17,8 @@
 
                 <label for="categoryProd">Categoria</label>
                 <select name="category" id="categoryProd" required>
-                    <option value="food">comida</option>
-                    <option value="drink">bebida</option>
+                    <option value="Seleccion">Seleccion</option>
+                    <option value="Clubes">Clubes</option>
                 </select>
 
                 <label for="priceProd">Precio</label>
@@ -57,13 +57,13 @@
 
         </section>
 
-        <!-- <section class="secccion-productos">
+        <section class="secccion-productos">
             <div id="contenedor-productos">
 
             </div>
-        </section> -->
+        </section>
     </main>
 
     <script src="/js/post.js"></script>
 
-<%- include("/partials/footer.ejs"); %>
+<%- include("partials/footer.ejs"); %>

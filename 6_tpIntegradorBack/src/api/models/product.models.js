@@ -29,9 +29,9 @@ const selectProductById = (id) => {
     // Sacamos el SELECT * pq evita traer columnas innecesarias (+ eficiencia)
     // El ? en la consulta es un "placeholder", una medida de seguridad en consultas SQL para prevenir inyecciones SQL
     
-    const sql = "SELECT id, name, price, image FROM productos WHERE id = ?"
+    const sql = "SELECT id, name, image, category, price FROM productos WHERE id = ?"
 
-    return connection.query(sql, [req.id]);
+    return connection.query(sql, [id]);
 }
 
 
@@ -65,7 +65,7 @@ const updateProduct = (name, image, price, category, id) => {
 const deleteProduct = (id) => {
     const sql = "DELETE FROM productos WHERE id = ?"; 
 
-    return connection.query(sql, [req.id]);
+    return connection.query(sql, [id]);
 }
 
 export default {

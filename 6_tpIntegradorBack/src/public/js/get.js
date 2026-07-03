@@ -1,6 +1,6 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const getProductForm = document.getElementById("getProduct-form");
-const urlBase = "http://localhost:3000/api/products";
+const urlBase = "http://localhost:3000/api/productos";
 
 // Optimizacion 1: Mostramos el mensaje de error visualmente
 function mostrarError(message) {
@@ -93,8 +93,8 @@ function mostrarProducto(producto) {
     let htmlProducto = `
         <ul>
             <li class="lista-producto">
-                <img src="https://pointlaventanita.com/wp-content/uploads/2024/05/chabona.webp" alt="Fernet Cola Chabona">
-                <p>Id: 41 / Nombre: Fernet Cola Chabona / <strong>Precio: $4200</strong></p>
+                <img src=${producto.image} alt=${producto.name}>
+                <p>Id: ${producto.id} / Nombre: ${producto.name} / <strong>Precio: $${producto.price}</strong></p>
             </li>
         </ul>
     `;

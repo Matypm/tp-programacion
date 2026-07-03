@@ -1,6 +1,6 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const getProductForm = document.getElementById("getProduct-form");
-const urlBase = "http://localhost:3000/api/products";
+const urlBase = "http://localhost:3000/api/productos";
 
 // Optimizacion 1: Mostramos el mensaje de exito o error visualmente
 function mostrarMensaje(type, message) {

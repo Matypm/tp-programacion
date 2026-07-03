@@ -7,9 +7,8 @@ import bcrypt from "bcrypt";
 
 /////////////////////
 // Create admin user
-///////////
 export const createAdminUser = async (req, res) => {
-
+    
     try {
         console.table(req.body);
         // Recogemos los datos limpios del body
@@ -22,12 +21,10 @@ export const createAdminUser = async (req, res) => {
 
         const [rows] = await userModels.insertAdminUser(nameUser, emailUser, hashedPassword);
 
-         // Optimizacion 4: En lugar de 201, devolvemos un 201 "Created"
         res.status(201).json({
             message: `Usuario creado con exito con id ${rows.insertId}`,
-            productId: rows.insertId 
+            productId: rows.insertId // Optimizacion 4: Devolvemos info util como el nuevo id creado
         });
-
 
     } catch (error) {
         console.log(error);

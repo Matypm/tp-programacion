@@ -1,13 +1,11 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const getProductForm = document.getElementById("getProduct-form");
 const contenedorForm = document.getElementById("contenedor-form");
-const urlBase = "http://localhost:3000/api/products";
+const urlBase = "http://localhost:3000/api/productos";
 
 // Optimizacion 1: Mostramos el mensaje de exito o error visualmente
 function mostrarMensaje(type, message) {
-    contenedorProductos.innerHTML = `
-        <p class="mensaje mensaje-${type}">${message}</p>
-    `;
+    contenedorProductos.innerHTML = `<p class="mensaje mensaje-${type}">${message}</p>`;
 }
 
 function mostrarListaErrores(array) {
@@ -118,8 +116,8 @@ async function crearFormularioPut(event, producto) {
 
             <label for="categoryProd">Categoria</label>
             <select name="category" id="categoryProd" required>
-                <option value="food">comida</option>
-                <option value="drink">bebida</option>
+                <option value="Seleccion">Seleccion</option>
+                <option value="Clubes">Clubes</option>
             </select>
 
             <label for="priceProd">Precio</label>
@@ -162,7 +160,7 @@ async function actualizarProducto(event) {
         data.price = Number(data.price);
 
     try {
-        const response = await fetch("http://localhost:3000/api/products/",{
+        const response = await fetch(`${urlBase}`,{
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

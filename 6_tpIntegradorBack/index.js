@@ -51,7 +51,7 @@ app.use(express.static(join(__dirname, "src/public"))); // Estoy diciendole a la
 app.use(session({
     secret: session_key, // Firmamos las cookies para evitar manipulacion (protegemos la sesion con una contraseña)
     resave: false, // Evitamos guardar la sesion si no hubo cambios
-    saveUnitialized: true // No guardamos sesiones vacias
+    saveUninitialized: true // No guardamos sesiones vacias
 }));
 
 
@@ -65,7 +65,7 @@ app.use(session({
 app.use("/api/productos", productRoutes); // Todas las peticiones a esta URL se las pasamos a product.routes.js
 app.use("/dashboard", viewRoutes); // Rutas de vistas
 app.use("/login", authRoutes); // Rutas de autenticacion
-app.use("/api/users", userRoutes); // Rutas de usuario
+app.use("/api/usuarios", userRoutes); // Rutas de usuario
 
 
 
@@ -76,8 +76,4 @@ app.listen(PORT, () => {
 
 
 // INDEX -> RUTA -> CONTROLADOR -> MODELO
-
-
-
-
 

@@ -56,7 +56,6 @@ export const getProductById = async (req, res) => {
 
 
         const [rows] = await ProductModels.selectProductById(req.id);
-
         //Optimizacion 4: Devolvemos error 404 si no hay productos con ese id
         if(rows.length === 0 || !req.id){
             return res.status(404).json({

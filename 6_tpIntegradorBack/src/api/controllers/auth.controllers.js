@@ -7,6 +7,7 @@ import UserModels from "../models/user.models.js"
 
 import bcrypt from "bcrypt";
 
+
 ///////////////
 // Vista login
 export const loginView = (req, res) => {
@@ -20,7 +21,6 @@ export const loginView = (req, res) => {
 //////////////////////////
 // Funcionalidad login
 export const loginUser = async (req, res) => {
-
     try {
         
         // Obtenemos el mail y la contraseña del formulario
@@ -55,10 +55,10 @@ export const loginUser = async (req, res) => {
         const user = rows[0];
         console.table(user);
         
-
+        
         // Bcrypt 2 -> Ahora que tenemos el usuario guardado en user, comparamos los hasheos
-
         const match = await bcrypt.compare(password, user.password);
+
         console.log(match); // Si coinciden los datos, devuelve true
 
         // Si hubiera match, continuamos con el login
@@ -112,4 +112,5 @@ export const loginDestroy = (req, res) => {
         res.redirect("/login");
     })
 }
+
 
