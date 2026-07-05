@@ -3,139 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mundo Casaca</title>
+
+    <!-- CDN PARA USAR JSPDF -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 
     <link rel="icon" href="./img/logoCasaca.png">
 
     <link rel="stylesheet" href="./css/styles.css">
-
     <script defer src = "./js/main.js"></script>
 
 </head>
 <body>
     <header>
-        <div class = contenedor-header>
-            <a class= "contenedor-img" href="index.html">
-                <img class= "logo-img" src="./img/logoCasaca.png" alt="iconoPagina">
-            </a>
-            <h1 class= "titulo-header">Mundo Casaca</h1>
+        <div class = "contenedor-header">
+            <div>
+                <a class= "contenedor-img-nombre" href="productos.html">
+                    <img class= "logo-img" src="./img/logoCasaca.png" alt="iconoPagina">
+                    <h1 class= "titulo-header">Mundo Casaca</h1>
+                </a>
+            </div>
             <input type="text" placeholder="Buscar..." class="barra-busqueda">
 
             <div class="carrito-header">
-                <span>Carrito: <span id="contador-carrito">0</span> productos</span>
+            <span>Carrito: <span id="contador-carrito">0</span> productos</span>
+            </div>
+            <div class="div-cerrar-sesion">
+                <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar sesion</button>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class ="section-prod">
-            <ul class = "ul-prod">
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camiseta de Boca</h3>
-                        <h4 class="contenedor-price-prod">$13000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="sumar">+</button>
-                        <button class="restar-producto" onclick="restar">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camisate de Argentina</h3>
-                        <h4 class="contenedor-price-prod">$20000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camiseta de Boca</h3>
-                        <h4 class="contenedor-price-prod">$13000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camiseta de Boca</h3>
-                        <h4 class="contenedor-price-prod">$13000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camisate de Argentina</h3>
-                        <h4 class="contenedor-price-prod">$20000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camiseta de Boca</h3>
-                        <h4 class="contenedor-price-prod">$13000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camiseta de Boca</h3>
-                        <h4 class="contenedor-price-prod">$13000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
-                <li class="lista-prod">
-                    <img class="contenedor-img-prod" src="https://assets.adidas.com/images/e_trim:EAEEEF/c_lpad,w_iw,h_ih/b_rgb:EAEEEF/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/3d8da5516ef14b4297b562d673589641_9366/Camiseta_Titular_Boca_Juniors_25-26_Azul_JJ4286_01_laydown.jpg" alt="">
-                    <div class="contenedor-descripcion">
-                        <h3 class="contenedor-name-prod">Camisate de Argentina</h3>
-                        <h4 class="contenedor-price-prod">$20000</h4>
-                    </div>
-                    <div class="contenedor-btn">
-                        <button class="sumar-producto" onclick="">+</button>
-                        <button class="restar-producto" onclick="">-</button>
-                    </div>
-                </li>
+        
+        <div id="saludo-usuario">
+        </div>
+        <section class ="section-prod-seleccion">
+            <div class = "div-categoria-prod">
+                <h2 class="h2-categoria-prod">Seleccion</h2>
+            </div>
+            <ul class = "ul-prod-seleccion">
             </ul>
         </section>
+
+        
+
+        <section class="section-prod-clubes">
+            <div class = "div-categoria-prod">
+                <h2 class="h2-categoria-prod">Clubes</h2>
+            </div>
+            <ul class = "ul-prod-clubes">
+            </ul>
+        </section>
+        
 
         <section class ="section-carrito">
             <div class = "div-carrito-prods">
                 <h2 class="text-carrito">Carrito</h2>
-                
-                <div id="items-carrito">
-                    <p>Camiseta de Boca - $20000</p>
-                    <button class="btn-eliminar-item" onclick="eliminar-producto">Eliminar</button>
+                <div class = "elementos-carrito">
+                    <!-- <div id="items-carrito">
+                        <p>Camiseta de Boca - $20000</p>
+                        <button class="btn-eliminar-item" onclick="eliminar-producto">Eliminar</button>
+                    </div> -->
+                    <!-- <p>No hay elementos en el carrito.</p> -->
                 </div>
-                    <p>No hay elementos en el carrito.</p>
             </div>
             <div class="total-carrito">
 		        <p>Total: <span id="precio-total">$0.00</span></p>
 		    </div>
             <div class="btn-carrito">
-                <button class="btn-vaciar-carrito" onclick="vaciar-carrito">Vaciar Carrito</button>
-                <button class="btn-pagar-carrito" onclick="imprimir-ticket">Imprimir ticket</button>
+                <button class= "hidden" id="btn-vaciar-carrito" onclick="vaciarCarrito()">Vaciar Carrito</button>
+                <button class= "hidden" id="btn-pagar-carrito">Imprimir ticket</button>
             </div>
 		</section>
     </main>

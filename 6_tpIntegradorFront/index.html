@@ -3,11 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bienvenido</title>
+
+    <link rel="icon" href="./img/logoCasaca.png">
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <script defer src="./js/main.js" ></script>
+
 </head>
 <body>
-    <head></head>
-    <main></main>
-    <footer></footer>
+    <header>
+        <div class = "contenedor-header-login">
+                <img class= "logo-img-login" src="./img/logoCasaca.png" alt="iconoPagina">
+                <h1 class= "titulo-header">Mundo Casaca</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="contenedor-bienvenida">
+            <h2 class ="texto-bienvenida">Bienvenido/a</h2>
+            <h3 class ="texto-nombre">Introduci tu nombre</h3>
+            <form id="form-bienvenida">
+                <input type="text" name="" id="input-nombre">
+                <input class="btn-entrar" type="submit" value="Enviar">
+            </form>
+        </div>
+
+    </main>
+
+    <script>
+        //formulario de bienvenida
+        let formBienvenida = document.getElementById("form-bienvenida");
+        formBienvenida.addEventListener("submit", event =>{
+            event.preventDefault(); // Evitamos el envio por defecto del formulario
+
+            // Extraemos el valor del campo de texto
+            let nombreUsuario = document.getElementById("input-nombre").value;
+
+            if(nombreUsuario.length > 0){
+                sessionStorage.setItem("nombreUsuario", nombreUsuario), //se guarda el nombre de usuario
+                window.location.href = "productos.html"; //hacemos la renderizacion
+            }
+
+        })
+    </script>
+
 </body>
 </html>
