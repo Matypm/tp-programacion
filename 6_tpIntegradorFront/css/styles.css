@@ -6,6 +6,7 @@
     --color-blanco: #ffffff;
     --background-section-prod: #e9e9e9;
     --background-carrito-color: #ffffff;
+    font-family: "Stack Sans Headline";
 }
 body{
     max-width: 2440px;
@@ -19,11 +20,7 @@ a{
 
 header{
     background-color: var(--background-header);
-    /* position: fixed; 
-    top: 0;          
-    left: 0;        
-    width: 100%;     
-    z-index: 0; */
+
 }
 
 /* main{
@@ -64,7 +61,8 @@ button:hover{
 }
 
 .titulo-header{
-    font-family: cursive;
+    font-family: Archivo Black, Static;
+;
     color: var(--titulo-color)
 }
 
@@ -81,7 +79,8 @@ button:hover{
 .carrito-header{
     margin-right: 2%;   
     font-family: monospace;
-    font-size: larger;
+    font-size: 20px;
+    color: #e9e9e9;
 }
 
 
@@ -145,7 +144,6 @@ button:hover{
 }
 
 .lista-prod{
-    background-color: var(--color-blanco);
     border-radius: 15px;
     min-width: 215px;
     min-height: 300px;
@@ -155,13 +153,15 @@ button:hover{
     margin-top: 10px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #e7f5eb;
+    border: 1px solid #000000;
 }
 
 
 .lista-prod:hover{
     box-shadow: 3px 3px 3px black;
     border: 1px solid #000000;
-    background-color: rgb(255, 255, 255);
+    background-color: #d3d4d3;
     transform: scale(1.06);
 }
 
@@ -231,15 +231,21 @@ button:hover{
 .text-carrito{
     margin-top: 0;
     padding-top:2.5%;
+    color: #e7f5ed;
 }
 
 .total-carrito{
     display:flex;
     justify-content: flex-end;
+    color: #e9e9e9;
 }
 
 .elementos-carrito{
     width: 55%;
+    color: #e7f5ed;
+    font-size: 120%;
+    display: flex;
+    flex-direction: column;
 }
 
 #items-carrito{
@@ -332,19 +338,33 @@ button:hover{
     width: 100%;
 }
 
-.input-nombre, .btn-entrar{
+#input-nombre, .btn-entrar{
     max-width: 305px;
     margin-bottom: 1%;
 }
 
-.input-nombre{
-    max-width: 305px;
+#input-nombre{
+    max-width: 245px;
+    min-width: 163px;
     width: 15.5%;
     height: 30px;
+    background-color: #e7f5ed;
+    border-radius: 5px;
+    font-family: arial;
+    border: solid 2px green;
 }
 
 .btn-entrar{
-    max-width: 305px;
+    max-width: 255px;
+    min-width: 173px;
+    background-color: #1e6e3f;
+    border-radius: 25px;
     width: 15.9%;
     height: 33px;
+    color: var(--background-carrito-color);
+    border: solid 2px #1e6e3f;
+}
+
+.btn-entrar:hover{
+    background-color: #34c06e;
 }

@@ -1,6 +1,7 @@
 // Redireccion a inicio////////////////////
 let nombreUsuario = sessionStorage.getItem("nombreUsuario");
 
+
 const url = "http://localhost:3000/api/productos"; // Guardamos en una variable la url de nuestro endpoint
 
 
@@ -76,7 +77,7 @@ function agregarAlCarrito(id) {
             }
         }
     }
-    console.log(`carrito_${nombreUsuario}`)
+    console.log(carrito)
     localStorage.setItem(`carrito_${nombreUsuario}`, JSON.stringify(carrito));;
     mostrarCarrito(id);
 }
@@ -110,7 +111,7 @@ function restarDelCarrito(id) {
             }
         }
     }
-    console.log(`carrito_${nombreUsuario}`);;
+    console.log(carrito);;
     localStorage.setItem(`carrito_${nombreUsuario}`, JSON.stringify(carrito));
     mostrarCarrito(id);
 }
@@ -164,7 +165,7 @@ function mostrarCarrito(id) {
 function vaciarCarrito(){
     if(vaciarCarrito){
         carrito = [];
-        console.log(`carrito_${nombreUsuario}`);
+        console.log(carrito);
         localStorage.removeItem(`carrito_${nombreUsuario}`);
         mostrarCarrito();
     };
@@ -175,7 +176,7 @@ function eliminarDelCarrito(id){
         for(let i = 0; i < carrito.length; i++){
             if (carrito[i].id == id) {
                 carrito.splice(i, 1)
-                console.log(`carrito_${nombreUsuario}`);
+                console.log(carrito);
                 localStorage.setItem(`carrito_${nombreUsuario}`, JSON.stringify(carrito));
                 mostrarCarrito()
             }
@@ -219,13 +220,19 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
         const doc = new jsPDF();  // En doc inicializamos todos los metodos para crear pdfs
 
         // Definimos el margen superior de 40 en el eje y -> eje vertical (y = vertical | x = horizontal)
-        let y = 40;
+        let y = 30;
 
         // Establecemos el tamaño de letra del 1er texto en 32px
         doc.setFontSize(32);
 
         // Escribimos el texto de ticket de compra en la pos x=80?->40! y=40
-        doc.text("Ticket de Compra MUNDO CASACA", 40, y);
+        doc.text("Ticket de Compra", 20, y);
+
+        y+= 20;
+
+        doc.setFontSize(30);
+
+        doc.text("MUNDO CASACA", 60, y);
 
         //Definimos el espacio dsp del titulo 25px para abajo sera el prox texto
         y += 25;
@@ -237,13 +244,13 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
         carrito.forEach(producto => {
             idProductos.push(producto.id); // Llenamos el array de ids de productos para registrar la venta despues
             
-            doc.text(`${producto.name}  |  $${producto.price}`, 60, y); // Creamos el texto para cada producto
+            doc.text(`${producto.name}  |  $${producto.price} x ${producto.cantidad}`, 30, y); // Creamos el texto para cada producto
 
             y += 20; // Dejamos 20px de espacio para el proximo producto q va abajo de otro (Evitamos solapamiento)
         });
 
-        // Calculamos el precio total del ticket usando reduce --> acumulador                   Este 0 es para iniciar el acumulador
-        const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.price), 0); 
+        // Calculamos el precio total del ticket usando reduce --> acumulador                                       Este 0 es para iniciar el acumulador
+        const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.price * producto.cantidad), 0); 
 
         // Añadimos otros 10px de espacio
         y += 10;
@@ -252,7 +259,7 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
         doc.setFontSize(24);
 
         // Escribimos el precio total del ticket
-        doc.text(`Total: $${precioTotal}`, 40, y);
+        doc.text(`Total: $${precioTotal}`, 20, y);
 
         // Imprimimos el ticket de venta
 
@@ -262,10 +269,90 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
 
         // Imprimimos el ticket de venta
         doc.save(nombreTicket);
-        window.location.href = "index.html"
-        vaciarCarrito();
-    }
 
+        // Redireccion a login y limpieza del carrito
+        // alert("Venta creada con éxito, Gracias por su compra!!");
+        vaciarCarrito();
+        registrarVentas(precioTotal, idProductos);
+        // localStorage.removeItem("nombreUsuario");
+        window.location.href = "index.html"
+    }
+}
+
+async function registrarVentas(precioTotal, idProductos){
+    try {
+        
+        const fecha = new Date();
+
+        // Visualizamos por consola todos los datos que le mandaremos al endpoint /api/sales
+        // console.log(fecha);             // Mon Dec 01 2025 22:01:57 GMT-0300 (Argentina Standard Time)
+        // console.log(nombreUsuario);     // Mati
+        // console.log(precioTotal);       // $65000
+        // console.log(idProductos);       // [ 4, 5, 6]
+
+        // Formato MySQL para timestamp
+        // Tenemos que formatear la fecha para que la acepte mysql
+        const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " "); // Como MYSQL no acepta fechas formato ISO tenemos q hacer esto
+                                        // 2025-08-07T18:30:45.123Z    ^
+                                    //     ^^^^^^^^^^^^^^^^^^^        El replace es para decir q la T se reemplace por un 
+                                    //     19 caracteres              espacio
+
+        console.log(fechaFormato); // 2026-05-07 17:51:15 asi si acepta
+
+
+        // Preparamos en el objeto data la informacion que le enviaremos al endpoint /api/sales en formato JSON en nuestra peticion POST
+        const data = {
+            nombre_usuario: nombreUsuario,
+            precio_total: precioTotal,
+            fecha: fechaFormato
+        }
+
+        // const dataVp = {
+        //     id_producto: idProductos
+        // }
+
+        // const responseVp = await fetch("http://localhost:3000/api/ventas_productos", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(dataVp)
+        // });
+
+        // const resultadoVp = await responseVp.json();
+        // console.log(resultadoVp);
+
+        const response = await fetch("http://localhost:3000/api/ventas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const resultado = await response.json();
+        console.log(response);
+
+        if (response.ok){
+            console.log("Venta registrada: ", resultado);
+            alert(resultado.message);
+
+            //Limpieza y redireccion al login
+            sessionStorage.removeItem("nombreUsuario");
+            vaciarCarrito();
+            window.location.href = "index.html";
+
+        } else {
+            console.error(resultado);
+            alert(`Error en la venta: ${resultado.message}` );
+        }
+
+
+
+    } catch (error) {
+        console.log(`Error al enviar datos: ${error}`);
+        alert("Error al registrar la venta");
+    }
 }
 
 function cerrarSesion(){
@@ -278,5 +365,7 @@ function init() {
     buscarProducto();
     saludarUsuario()
 }
+
+
 
 init()

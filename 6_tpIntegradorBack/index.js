@@ -6,7 +6,7 @@ import environments from "./src/api/config/environments.js";
 import connection from "./src/api/database/db.js";
 import cors from "cors";
 import { loggerURL } from "./src/api/middlewares/middlewares.js";
-import { authRoutes, productRoutes, userRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { authRoutes, productRoutes, saleRoutes, userRoutes, viewRoutes } from "./src/api/routes/index.js";
 import { __dirname, join } from "./src/api/utils/index.js"; //Importamos __dirname y join apuntando a la ruta del archivo index.js
 import session from "express-session"; // Aca importamos el modulo session que instalamos con npm i express-session y se encuentra adentro de node_modules
 const { port, session_key } = environments;
@@ -66,6 +66,8 @@ app.use("/api/productos", productRoutes); // Todas las peticiones a esta URL se 
 app.use("/dashboard", viewRoutes); // Rutas de vistas
 app.use("/login", authRoutes); // Rutas de autenticacion
 app.use("/api/usuarios", userRoutes); // Rutas de usuario
+app.use("/api/ventas", saleRoutes) // Ruta de ventas
+app.use("/api/ventas_productos", saleRoutes) // Ruta de ventas_productos
 
 
 

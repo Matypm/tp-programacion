@@ -6,6 +6,9 @@
     <title>Bienvenido</title>
 
     <link rel="icon" href="./img/logoCasaca.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Stack+Sans+Headline:wght@200..700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./css/styles.css">
     <script defer src="./js/main.js" ></script>
@@ -24,7 +27,7 @@
             <h2 class ="texto-bienvenida">Bienvenido/a</h2>
             <h3 class ="texto-nombre">Introduci tu nombre</h3>
             <form id="form-bienvenida">
-                <input type="text" name="" id="input-nombre">
+                <input type="text" name="" id="input-nombre" required>
                 <input class="btn-entrar" type="submit" value="Enviar">
             </form>
         </div>
@@ -41,7 +44,7 @@
             let nombreUsuario = document.getElementById("input-nombre").value;
 
             if(nombreUsuario.length > 0){
-                sessionStorage.setItem("nombreUsuario", nombreUsuario), //se guarda el nombre de usuario
+                sessionStorage.setItem("nombreUsuario", nombreUsuario) //se guarda el nombre de usuario
                 window.location.href = "productos.html"; //hacemos la renderizacion
             }
 

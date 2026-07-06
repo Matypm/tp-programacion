@@ -178,3 +178,4 @@ export const removeProduct =  async (req, res) => {
         })
     }
 }
+
