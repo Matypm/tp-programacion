@@ -2,6 +2,7 @@
     Controladores de ventas
 *================================*/
 
+import connection from "../database/db.js";
 import ProductModels from "../models/sales.models.js";
 
 //////////////////
@@ -11,16 +12,21 @@ import ProductModels from "../models/sales.models.js";
 export const createVenta = async (req, res) => {
     // Optimizacion 1: Manejo de errores con try catch
     try {
-        const { nombre_usuario, fecha, precio_total } = req.body;
+        const { nombre_usuario, fecha, precio_total, productos } = req.body;
         
         const [rows] = await ProductModels.insertVenta(nombre_usuario, fecha, precio_total);
 
+        
         const ticketId = rows.insertId; 
 
         res.status(200).json({
             message: "Venta creada con éxito, Gracias por su compra!!",
             productId: ticketId  // Optimizacion 4: Devolvemos info util como el nuevo id creado
         })
+        
+        for (const id_producto of productos){
+            await ProductModels.insertVentaProd(id_producto);
+        }
 
     } catch (error) {
         console.log(error);
@@ -35,23 +41,28 @@ export const createVenta = async (req, res) => {
 /////////////////////////////////////
 // Create a tabla ventas_productos
 ////////////////
- export const createVentaProd = async (req, res) => {
-    // Optimizacion 1: Manejo de errores con try catch
-    try {
-        const { id_producto } = req.body;
-        
-        const [rows] = await ProductModels.insertVentaProd(id_producto);
+//  export const createVentaProd = async (req, res) => {
+//     // Optimizacion 1: Manejo de errores con try catch
+//     try {
+//         const { id_producto } = req.body;
 
-        const idProd = rows.insertId;
+//         for (id_producto of productos) {
+//             const [rows] = await ProductModels.insertVentaProd(id_producto);
+//         }
 
-        res.status(200).json({})
+//         // const idProd = rows.insertId;
+
+//         res.status(200).json({
+//             message: "Venta registrada con exito!",
+//             ticketId: ticketId
+//         })
 
 
-    } catch (error) {
-        console.log(error)
-        // Optimizacion 2: Devolvemos errores 500
-        res.status(500).json({
-            message: "Error interno del servidor al registrar venta y productos"
-        })
-    }
- }
+//     } catch (error) {
+//         console.log(error)
+//         // Optimizacion 2: Devolvemos errores 500
+//         res.status(500).json({
+//             message: "Error interno del servidor al cargar venta y productos"
+//         })
+//     }
+//  }

@@ -3,7 +3,7 @@
 ========================*/
 
 import { Router } from "express";
-import { createVenta, createVentaProd } from "../controllers/sales.controllers.js";
+import { createVenta } from "../controllers/sales.controllers.js";
 const router = Router();
 
 /////////////////
@@ -16,7 +16,7 @@ router.post("/", createVenta);
 // Post a tabla ventas_productos
 /////////////
 
-router.post("/", createVentaProd);
+// router.post("/", createVentaProd);
 
 // Exporto la ruta asi la centralizo en el archivo barril
 export default router;

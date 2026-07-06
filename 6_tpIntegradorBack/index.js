@@ -67,7 +67,6 @@ app.use("/dashboard", viewRoutes); // Rutas de vistas
 app.use("/login", authRoutes); // Rutas de autenticacion
 app.use("/api/usuarios", userRoutes); // Rutas de usuario
 app.use("/api/ventas", saleRoutes) // Ruta de ventas
-app.use("/api/ventas_productos", saleRoutes) // Ruta de ventas_productos
 
 
 

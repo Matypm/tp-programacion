@@ -19,7 +19,7 @@ const insertVenta = (nombre_usuario, fecha, precio_total) => {
 const insertVentaProd = (id_producto) => {
     const sql = "INSERT INTO ventas_productos (id_producto) VALUES (?)"
 
-    return connection.query(sql, [id_producto])
+    return connection.query(sql, [ id_producto])
 }
 
 export default{
