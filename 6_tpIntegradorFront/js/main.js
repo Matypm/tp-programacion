@@ -211,7 +211,7 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
         // Gracias al CDN ya tenemos las funcionalidades de jsPDF
 
         // Para registrar las ventas a posteriori, guardaremos los ids de los produtos del carrito
-        let idProductos = [];
+        let idProducto = [];
 
         // Gracias al CDN, extraemos la clase jspdf del objeto global window
         const { jsPDF } = window.jspdf;
@@ -242,8 +242,7 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
 
         // Iteramos el carrito e imprimimos el nombre y precio
         carrito.forEach(producto => {
-            idProductos.push(producto.id); // Llenamos el array de ids de productos para registrar la venta despues
-            
+            idProducto.push(producto.id); // Llenamos el array de ids de productos para registrar la venta despues
             doc.text(`${producto.name}  |  $${producto.price} x ${producto.cantidad}`, 30, y); // Creamos el texto para cada producto
 
             y += 20; // Dejamos 20px de espacio para el proximo producto q va abajo de otro (Evitamos solapamiento)
@@ -273,13 +272,13 @@ function imprimirTicket(){ // Idealmente, primero se registra la venta, luego se
         // Redireccion a login y limpieza del carrito
         // alert("Venta creada con éxito, Gracias por su compra!!");
         vaciarCarrito();
-        registrarVentas(precioTotal, idProductos);
+        registrarVentas(precioTotal, idProducto);
         // localStorage.removeItem("nombreUsuario");
         window.location.href = "index.html"
     }
 }
 
-async function registrarVentas(precioTotal, idProductos){
+async function registrarVentas(precioTotal, idProducto){
     try {
         
         const fecha = new Date();
@@ -304,23 +303,11 @@ async function registrarVentas(precioTotal, idProductos){
         const data = {
             nombre_usuario: nombreUsuario,
             precio_total: precioTotal,
-            fecha: fechaFormato
+            fecha: fechaFormato,
+            productos: idProducto
         }
+        console.log(idProducto)
 
-        // const dataVp = {
-        //     id_producto: idProductos
-        // }
-
-        // const responseVp = await fetch("http://localhost:3000/api/ventas_productos", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(dataVp)
-        // });
-
-        // const resultadoVp = await responseVp.json();
-        // console.log(resultadoVp);
 
         const response = await fetch("http://localhost:3000/api/ventas", {
             method: "POST",
@@ -331,7 +318,6 @@ async function registrarVentas(precioTotal, idProductos){
         });
 
         const resultado = await response.json();
-        console.log(response);
 
         if (response.ok){
             console.log("Venta registrada: ", resultado);
